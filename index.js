@@ -29,23 +29,14 @@ const client = new Client({
 })
 console.log('Starting WhatsApp client...\n')
 
-// Function to generate QR code.
-function generateQR() {
-    // Generate QR code.
-    client.generateQR((qr) => {
-        console.clear()
-        console.log('\n1. Open WhatsApp on your phone\n2. Tap Menu or Settings and select WhatsApp Web\n3. Point your phone to this screen to capture the code\n')
+// On QR code.
+client.on('qr', (qr) => {
+    console.clear()
+    console.log('\n1. Open WhatsApp on your phone\n2. Tap Menu or Settings and select WhatsApp Web\n3. Point your phone to this screen to capture the code\n')
 
-        // Display QR code.
-        qrcode.generate(qr, { small: false })
-    })
-}
-
-// Generate initial QR code.
-generateQR()
-
-// Set interval to generate QR code every 1 minute.
-setInterval(generateQR, 60000)
+    // Display QR code.
+    qrcode.generate(qr, { small: true })
+})
 
 // On authentication.
 client.on('authenticated', (session) => {
